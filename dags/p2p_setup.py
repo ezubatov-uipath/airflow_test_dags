@@ -45,7 +45,7 @@ with DAG(
     def create_container(ds, **kwargs):
         hook = WasbHook('pmc_wasb')
         print(hook.get_connection('pmc_wasb').get_uri)
-        container_name = "{{ dag_run.conf['application_id'] }}"
+        container_name = kwargs['dag_run'].conf.get('application_id') #"{{ dag_run.conf['application_id'] }}"
         print(f"creating container: {container_name}")
         container = hook.create_container(container_name)
         return
